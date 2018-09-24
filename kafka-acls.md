@@ -39,8 +39,13 @@ kafka-topics --list --zookeeper localhost:2181
 #### Adding Consumer or Producer ####
 use: --producer or --consumer
 
-example:kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:jnachtwey *--producer* --topic mytopic
+example:
+
+```kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:jnachtwey *--producer* --topic mytopic```
+
 output:
+
+```
 Adding ACLs for resource `Topic:mytopic`:
         User:jnachtwey has Allow permission for operations: Write from hosts: *
         User:jnachtwey has Allow permission for operations: Describe from hosts: *
@@ -51,7 +56,7 @@ Adding ACLs for resource `Cluster:kafka-cluster`:
 Current ACLs for resource `Topic:mytopic`:
         User:jnachtwey has Allow permission for operations: Write from hosts: *
         User:jnachtwey has Allow permission for operations: Describe from hosts: *
-
+```
 
 Disadvantage: Producer comes with CREATE rights. (Could create Topics) //TODO hebelt das autocreation aus?
 Take Care: --produce will have "Create Rights". Better is to use not Con
@@ -60,8 +65,12 @@ Take Care: --produce will have "Create Rights". Better is to use not Con
 
 
 
-example:kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:jnachtwey *--producer* --topic mytopic
+example:
+
+```kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:jnachtwey *--producer* --topic mytopic```
+
 output:
+```
 Adding ACLs for resource `Topic:mytopic`:
         User:jnachtwey has Allow permission for operations: Write from hosts: *
         User:jnachtwey has Allow permission for operations: Describe from hosts: *
@@ -72,11 +81,33 @@ Adding ACLs for resource `Cluster:kafka-cluster`:
 Current ACLs for resource `Topic:mytopic`:
         User:jnachtwey has Allow permission for operations: Write from hosts: *
         User:jnachtwey has Allow permission for operations: Describe from hosts: *
+```
+
+#### Adding cluster rights ####
+
+```
+kafka-acls --authorizer-properties zookeeper.connect=zookeeper:2181 --add --allow-principal User:zoozoo  --cluster
+```
+
+Output:
+
+```
+Adding ACLs for resource `Cluster:LITERAL:kafka-cluster`: 
+ 	User:zoozoo has Allow permission for operations: All from hosts: * 
+
+Current ACLs for resource `Cluster:LITERAL:kafka-cluster`: 
+ 	User:Alice has Allow permission for operations: All from hosts: *
+	User:zoozoo has Allow permission for operations: All from hosts: * 
+```
+
+
 #### Remove ####
 use: --remove
 
-example: kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:jnachtwey --producer --topic mytopic
-
+example: 
+```
+kafka-acls --authorizer-properties zookeeper.connect=localhost:2181 --add --allow-principal User:jnachtwey --producer --topic mytopic
+```
 
 Authorizer Logging:
 To enable the authorizer logs it is neccessay to set logging level for to *DEBUG*.
