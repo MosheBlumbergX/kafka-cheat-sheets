@@ -1,11 +1,11 @@
 https://www.confluent.io/blog/a-comprehensive-open-source-rest-proxy-for-kafka/
 
-## Authorization with Access Control Lists ##
-
 
 **Create new topic:**
+
 ```
 root@kafka1:/# kafka-topics  --zookeeper zookeeper:2181 --create --topic testme   --replication-factor 2 --partitions 5
+```
 
 **Post to new topic:**
 ```
