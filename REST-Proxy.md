@@ -44,7 +44,7 @@ curl -X POST -H "Content-Type: application/vnd.kafka.v2+json" --data '{"topics":
 curl -X GET -H "Accept: application/vnd.kafka.json.v2+json" https://localhost:8086/consumers/my_json_consumer1/instances/my_consumer_instance1/records -k
 ```
 
-** another example **
+**another example**
 
 ```
 curl -X POST \
