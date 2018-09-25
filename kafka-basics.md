@@ -72,7 +72,7 @@ Topic:topic_name   PartitionCount:10       ReplicationFactor:1     Configs:
         Topic: topic_name  Partition: 9    Leader: 0       Replicas: 0     Isr: 0
 ```
 
-## Consolen consumer ##
+## Console consumer ##
 
 **command:**
 >./kafka-console-consumer.sh --bootstrap-server {host}:{port} --topic {topic_name} --new-consumer
@@ -84,7 +84,7 @@ Topic:topic_name   PartitionCount:10       ReplicationFactor:1     Configs:
 									  : --consumer.config ./config/client-security.properties // See below for client-security.properties <br>
 									    --from-beginning //read all messages from beginning
 
-## Consolen producer ##
+## Console producer ##
 
 **command:**
 >./kafka-console-producer.sh --broker-list {host}:{port} --topic {topic_name} --new-producer
@@ -95,6 +95,31 @@ Topic:topic_name   PartitionCount:10       ReplicationFactor:1     Configs:
 **options:**
 If security is active use: --security-protocol {SASL_SSL} xor {SASL_PLAINTEXT} xor {SSL} else: default {PLAINTEXT} <br>
 							          : --producer.config ./config/producer.properties // See below for client-security.properties <br>
+
+
+
+## Console producer ##
+
+We assume client authentication is required by the broker in the following configuration example that you can store in a client properties file client-ssl.properties. Since this stores passwords directly in the broker configuration file, it is important to restrict access to these files via file system permissions.
+
+bootstrap.servers=kafka1:9093
+security.protocol=SSL
+ssl.truststore.location=/var/private/ssl/kafka.client.truststore.jks
+ssl.truststore.password=test1234
+ssl.keystore.location=/var/private/ssl/kafka.client.keystore.jks
+ssl.keystore.password=test1234
+ssl.key.password=test1234
+
+Examples using kafka-console-producer and kafka-console-consumer, passing in the client-ssl.properties file with the properties defined above:
+
+bin/kafka-console-producer --broker-list kafka1:9093 --topic test --producer.config client-ssl.properties
+bin/kafka-console-consumer --bootstrap-server kafka1:9093 --topic test --consumer.config client-ssl.properties --from-beginning
+
+
+https://www.confluent.io/blog/apache-kafka-security-authorization-authentication-encryption/
+
+
+
 
 ## Show active consumer groups ##
 
