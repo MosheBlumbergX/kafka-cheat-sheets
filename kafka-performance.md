@@ -75,3 +75,16 @@ Latency is measured by a round trip from producer to Broker and Broker to consum
 ```
 
 ```
+
+## JMX ##
+
+
+```
+kafka-run-class kafka.tools.JmxTool --object-name 'kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request=Fetch' --jmx-url service:jmx:rmi:///jndi/rmi://localhost:9991/jmxrmi --reporting-interval 2000
+```
+
+**All in 1**
+
+```
+kafka-run-class kafka.tools.JmxTool  --object-name 'kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request=Produce' --object-name 'kafka.network:type=RequestMetrics,name=LocalTimeMs,request=Produce' --object-name 'kafka.network:type=RequestMetrics,name=RemoteTimeMs,request=Produce' --object-name 'kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request=Produce' --object-name 'kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request=Produce' --object-name 'kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request=FetchConsumer' --object-name 'kafka.network:type=RequestMetrics,name=LocalTimeMs,request=FetchConsumer' --object-name 'kafka.network:type=RequestMetrics,name=RemoteTimeMs,request=FetchConsumer' --object-name 'kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request=FetchConsume' r--object-name 'kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request=FetchConsumer' --object-name 'kafka.network:type=RequestMetrics,name=RequestQueueTimeMs,request=FetchFollower' --object-name 'kafka.network:type=RequestMetrics,name=LocalTimeMs,request=FetchFollower' --object-name 'kafka.network:type=RequestMetrics,name=RemoteTimeMs,request=FetchFollower' --object-name 'kafka.network:type=RequestMetrics,name=ResponseQueueTimeMs,request=FetchFollowe' r--object-name 'kafka.network:type=RequestMetrics,name=ResponseSendTimeMs,request=FetchFollower' --object-name 'kafka.network:type=SocketServer,name=NetworkProcessorAvgIdlePercent' --object-name 'kafka.server:type=KafkaRequestHandlerPool,name=RequestHandlerAvgIdlePercent'  --jmx-url service:jmx:rmi:///jndi/rmi://localhost:9991/jmxrmi --reporting-interval 2000 > stats.csv > stats.csv
+```
